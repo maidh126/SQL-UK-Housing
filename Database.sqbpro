@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/Users/maido/Google Drive/Asgm/Data Foundation/Working/Database.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1712"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,9:mainBroadband"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE &quot;District&quot; (
+&quot;DistrictCode&quot; TEXT NOT NULL UNIQUE,
+&quot;DistrictName&quot; TEXT NOT NULL UNIQUE,
+PRIMARY KEY(&quot;DistrictCode&quot;)
+);
+
+CREATE TABLE &quot;PostCode&quot; (
+&quot;ID&quot; INTEGER NOT NULL,
+&quot;PostCode&quot; TEXT NOT NULL,
+&quot;WardCode&quot; TEXT NOT NULL,
+PRIMARY KEY(&quot;ID&quot; AUTOINCREMENT),
+FOREIGN KEY(WardCode) REFERENCES Ward(WardCode)
+FOREIGN KEY(PostCode) REFERENCES PricePaid(PostCode)
+);
+
+CREATE TABLE &quot;Ward&quot; (
+&quot;WardCode&quot; TEXT NOT NULL UNIQUE,
+&quot;WardName&quot; TEXT NOT NULL,
+&quot;DistrictCode&quot; TEXT NOT NULL,
+PRIMARY KEY(&quot;WardCode&quot;),
+FOREIGN KEY(DistrictCode) REFERENCES District(DistrictCode)
+);
+
+CREATE TABLE &quot;Broadband&quot; (
+&quot;ID&quot; INTEGER NOT NULL,
+&quot;WardCode&quot; TEXT NOT NULL,
+&quot;AverageDownloadSpeed&quot; NUMERIC NOT NULL,
+&quot;AvailabilityPercent&quot; NUMERIC NOT NULL,
+PRIMARY KEY(&quot;ID&quot; AUTOINCREMENT),
+FOREIGN KEY(WardCode) REFERENCES Ward(WardCode)
+);
+
+CREATE TABLE &quot;HouseMedian&quot; (
+&quot;ID&quot; INTEGER NOT NULL,
+&quot;WardCode&quot; TEXT NOT NULL,
+&quot;Quarter&quot; INTEGER NOT NULL,
+&quot;Year&quot; INTEGER NOT NULL,
+&quot;Median&quot; NUMERIC NOT NULL,
+PRIMARY KEY(&quot;ID&quot; AUTOINCREMENT),
+FOREIGN KEY(WardCode) REFERENCES Ward(WardCode)
+);
+
+CREATE TABLE &quot;HousePaid&quot; (
+&quot;ID&quot; INTEGER NOT NULL,
+&quot;PricePaid&quot; NUMERIC NOT NULL,
+&quot;Quarter&quot; INTEGER NOT NULL,
+&quot;Year&quot; INTEGER NOT NULL,
+&quot;PostCode&quot; TEXT NOT NULL,
+PRIMARY KEY(&quot;ID&quot; AUTOINCREMENT),
+FOREIGN KEY(PostCode) REFERENCES PostCode(PostCode)
+);
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
